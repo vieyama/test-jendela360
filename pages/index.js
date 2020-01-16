@@ -90,7 +90,7 @@ const Home = () => {
             onClick={() => setHidden(!hidden)}
           >
             {" "}
-            read more
+            Make Order
           </a>
         </div>
       </div>
