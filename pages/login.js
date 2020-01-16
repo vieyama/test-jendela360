@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Nav from '../components/nav'
 import Swal from "sweetalert2";
 import Router from 'next/router'
+import Link from "next/link";
 
 const Home = () => {
   const [User, setUser] = useState("");

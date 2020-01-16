@@ -2,32 +2,34 @@ import React, { useState, useEffect } from "react";
 import Head from 'next/head'
 import Nav from '../components/nav'
 import Swal from "sweetalert2";
-import Link from 'next/link'
+import Router from 'next/router'
+import Link from "next/link";
 
 const Home = () => {
-  const [hidden, setHidden] = useState(true);
-  const [fName, setfName] = useState("");
-  const [lName, setlName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [jml, setjml] = useState("");
-  const [sumber, setsumber] = useState("");
-  const [keterangan, setKeterangan] = useState("");
-  
-  const submitValue = () => {
-    const frmdetails = {
-      "fName" : fName,
-      "lName" : lName,
-      "phone" : phone,
-      "email" : email,
-      "jml" : jml,
-      "sumber" : sumber,
-      "keterangan" : keterangan,
-    };
-    console.log(frmdetails);
-    Swal.fire("", "Pesanan Berhasil", "success");
-    setHidden(true)
-  };
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: toast => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    }
+  });
+
+  const getBook = () => {
+    setTimeout(() => {
+      Toast.fire({
+        icon: "success",
+        title: "Signed in successfully"
+      }).then(Router.push('/'));
+    }, 50000);
+  }
+
+  useEffect(() => {
+    getBook();
+  }, []);
 
   return (
     <div>
@@ -73,7 +75,7 @@ const Home = () => {
             <div class="d-flex order-lg-2 ml-auto">
               <div class="nav-item d-none d-md-flex">
                 <Link href="/login">
-                  <a class="btn btn-sm btn-outline-primary">Login</a>
+                  <a class="btn btn-sm btn-outline-primary">Logout</a>
                 </Link>
               </div>
             </div>
@@ -85,119 +87,118 @@ const Home = () => {
         <div className="col-md-5 p-lg-5 mx-auto my-5">
           <h1 className="display-4 font-weight-normal">NAWASENA BAKERY</h1>
           <p className="lead font-weight-normal">Get Your Best Bakery Here</p>
-          <a
-            className="btn btn-outline-secondary"
-            onClick={() => setHidden(!hidden)}
-          >
-            {" "}
-            read more
-          </a>
         </div>
       </div>
-      <div
-        className="container"
-        style={{ marginTop: "-50px", display: hidden ? "none" : "" }}
-      >
-        <div className="row" style={{ background: "white" }}>
-          <div className="card-body">
-            <h3 className="card-title">Form Order</h3>
-            <div className="row">
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">Sumber Pesanan</label>
-                  <select
-                    onChange={e => setsumber(e.target.value)}
-                    className="form-control custom-select"
-                  >
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Call">Call</option>
-                    <option value="Email">Email</option>
-                  </select>
-                </div>
+      <div className="container" style={{marginTop:'-50px'}}>
+        <div className="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Invoices</h3>
               </div>
+              <div class="table-responsive">
+                <table className="table card-table table-striped table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>Nama Pemesan</th>
+                      <th>Email</th>
+                      <th>Nomer Telepon</th>
+                      <th>Jumlah Pesanan</th>
+                      <th>Sumber</th>
+                      <th>Keterangan</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Yovie Fesya Pratama</td>
+                      <td>yoviefp@gmail.com</td>
+                      <td class="text-nowrap">089653858978</td>
+                      <td>20 Bungkus</td>
+                      <td>WhatsApp</td>
+                      <td>-</td>
+                      <td class="w-1">
+                        <a href="#" class="icon mr-5">
+                          <i class="fe fe-check"></i>
+                        </a>
 
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label className="form-label">Nama Depan</label>
-                  <input
-                    onChange={e => setfName(e.target.value)}
-                    type="text"
-                    className="form-control"
-                    disabled=""
-                    placeholder="Nama Depan"
-                  />
-                </div>
-              </div>
+                        <a href="#" class="icon">
+                          <i class="fe fe-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Yovie Fesya Pratama</td>
+                      <td>yoviefp@gmail.com</td>
+                      <td class="text-nowrap">089653858978</td>
+                      <td>20 Bungkus</td>
+                      <td>WhatsApp</td>
+                      <td>-</td>
+                      <td class="w-1">
+                        <a href="#" class="icon mr-5">
+                          <i class="fe fe-check"></i>
+                        </a>
 
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label className="form-label">Nama Belakang</label>
-                  <input
-                    onChange={e => setlName(e.target.value)}
-                    type="text"
-                    className="form-control"
-                    disabled=""
-                    placeholder="Nama Belakang"
-                  />
-                </div>
-              </div>
+                        <a href="#" class="icon">
+                          <i class="fe fe-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Yovie Fesya Pratama</td>
+                      <td>yoviefp@gmail.com</td>
+                      <td class="text-nowrap">089653858978</td>
+                      <td>20 Bungkus</td>
+                      <td>WhatsApp</td>
+                      <td>-</td>
+                      <td class="w-1">
+                        <a href="#" class="icon mr-5">
+                          <i class="fe fe-check"></i>
+                        </a>
 
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">Email</label>
-                  <input
-                    onChange={e => setEmail(e.target.value)}
-                    type="email"
-                    className="form-control"
-                    disabled=""
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
+                        <a href="#" class="icon">
+                          <i class="fe fe-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Yovie Fesya Pratama</td>
+                      <td>yoviefp@gmail.com</td>
+                      <td class="text-nowrap">089653858978</td>
+                      <td>20 Bungkus</td>
+                      <td>WhatsApp</td>
+                      <td>-</td>
+                      <td class="w-1">
+                        <a href="#" class="icon mr-5">
+                          <i class="fe fe-check"></i>
+                        </a>
 
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">Nomor Telepon</label>
-                  <input
-                    onChange={e => setPhone(e.target.value)}
-                    type="text"
-                    className="form-control"
-                    disabled=""
-                    placeholder="Nomor Telepon"
-                  />
-                </div>
-              </div>
+                        <a href="#" class="icon">
+                          <i class="fe fe-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Yovie Fesya Pratama</td>
+                      <td>yoviefp@gmail.com</td>
+                      <td class="text-nowrap">089653858978</td>
+                      <td>20 Bungkus</td>
+                      <td>WhatsApp</td>
+                      <td>-</td>
+                      <td class="w-1">
+                        <a href="#" class="icon mr-5">
+                          <i class="fe fe-check"></i>
+                        </a>
 
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">Jumlah Roti/Pesanan</label>
-                  <input
-                    onChange={e => setjml(e.target.value)}
-                    type="number"
-                    className="form-control"
-                    disabled=""
-                    placeholder="Jumlah Roti/Pesanan"
-                    min={1}
-                  />
-                </div>
-              </div>
-
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">Keterangan</label>
-                  <textarea
-                    onChange={e => setKeterangan(e.target.value)}
-                    className="form-control"
-                    placeholder="Jumlah Roti/Pesanan"
-                  />
-                </div>
+                        <a href="#" class="icon">
+                          <i class="fe fe-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-          </div>
-          <div className="card-footer text-right">
-            <button onClick={submitValue} className="btn btn-primary">
-              Make Order
-            </button>
           </div>
         </div>
       </div>
